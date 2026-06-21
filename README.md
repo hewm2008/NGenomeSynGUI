@@ -45,6 +45,8 @@ Flask dev server runs with `threaded=True`, handling 2-5 concurrent users. For h
 pip install gunicorn
 bash start.sh  # automatically uses gunicorn -w 4
 ```
+</br> The GUI as follows:
+![GUI.png](https://github.com/hewm2008/NGenomeSynGUI/blob/main/doc/GUI.png)
 
 ## Usage
 
