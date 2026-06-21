@@ -52,6 +52,9 @@ pip install gunicorn
 bash start.sh  # 自动检测并使用 gunicorn -w 4
 ```
 
+</br> The GUI as follows:
+![GUI.png](https://github.com/hewm2008/NGenomeSynGUI/blob/main/doc/GUI.png)
+
 ## Windows 部署
 
 ### 1. 安装 Perl
