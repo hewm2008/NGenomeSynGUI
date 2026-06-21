@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NGenomeSyn Web</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>NGenomeSyn <span class="subtitle">Interactive</span></h1>
+    <div class="header-actions">
+      <button class="btn btn-sm" onclick="loadDemo()">📦 Demo</button>
+      <button class="btn btn-sm" onclick="clearAll()">Clear</button>
+      <span class="dev-badge" onclick="toggleContact(event)">hewm2008</span>
+    </div>
+  </header>
+
+  <div id="contact-panel" style="display:none">
+    <a href="mailto:hewm2008@gmail.com">📧 hewm2008@gmail.com</a>
+    <a href="mailto:hewm2008@qq.com">📧 hewm2008@qq.com</a>
+    <span>💬 QQ Group: <b><i>125293663</i></b></span>
+  </div>
+
+  <div id="top-bar">
+    <label>Number of Genomes (N≥2):</label>
+    <input type="number" id="genome-count" min="2" value="2" class="num-input">
+    <button class="btn btn-sm" id="apply-count-btn">Apply</button>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="section-card" id="genomes-section">
+        <h2>Genomes <span class="badge" id="genome-count-badge">0</span></h2>
+        <div id="genomes-container"></div>
+      </div>
+
+      <div class="section-card" id="links-section">
+        <h2>Links <span class="badge" id="link-count-badge">0</span></h2>
+        <div id="links-container"></div>
+        <div class="add-link-bar" id="add-link-btn" onclick="addLink()">+ Add Link</div>
+      </div>
+
+      <div class="section-card" id="global-section">
+        <h2>Global Params</h2>
+        <div class="param-grid">
+          <label>Chr Width <input type="range" min="4" max="60" value="20" id="gl-chr-width" oninput="updateGlobalParam()"><span id="gl-chr-width-val" class="range-val">20</span></label>
+          <label>Chr Spacing <input type="range" min="1" max="40" value="10" id="gl-chr-spacing" oninput="updateGlobalParam()"><span id="gl-chr-spacing-val" class="range-val">10</span></label>
+          <div class="gl-btn-row">
+            <button class="btn btn-xs gl-more-btn" data-gl="theme">▼ Theme</button>
+            <button class="btn btn-xs gl-more-btn" data-gl="canvas">▼ Canvas</button>
+          </div>
+          <div class="gl-more" id="gl-theme" style="display:none">
+            <label>Main <input type="text" class="gl-trigger" id="gl-main" value="" placeholder="main_Figure"></label>
+            <label>MainRatioFontSize <input type="range" min="0.5" max="3" step="0.1" value="1" class="gl-trigger" id="gl-mrfs"><span id="gl-mrfs-val" class="range-val">1</span></label>
+            <label>MainColor <input type="color" class="gl-trigger" id="gl-maincor" value="#ffffff"></label>
+            <label>ShiftMainX <input type="number" class="gl-trigger" id="gl-smx" value="0"></label>
+            <label>ShiftMainY <input type="number" class="gl-trigger" id="gl-smy" value="0"></label>
+          </div>
+          <div class="gl-more" id="gl-canvas" style="display:none">
+            <label>body <input type="number" class="gl-trigger" id="gl-body" value="1200"></label>
+            <label>up <input type="number" class="gl-trigger" id="gl-up" value="55"></label>
+            <label>down <input type="number" class="gl-trigger" id="gl-down" value="25"></label>
+            <label>left <input type="number" class="gl-trigger" id="gl-left" value="100"></label>
+            <label>right <input type="number" class="gl-trigger" id="gl-right" value="120"></label>
+            <label>CanvasHeightRitao <input type="range" min="0.5" max="2" step="0.1" value="1" class="gl-trigger" id="gl-chr"><span id="gl-chr-val" class="range-val">1</span></label>
+            <label>CanvasWidthRitao <input type="range" min="0.5" max="2" step="0.1" value="1" class="gl-trigger" id="gl-cwr"><span id="gl-cwr-val" class="range-val">1</span></label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="section-card canvas-card" id="canvas-section">
+        <h2>Genome Layout
+          <span class="canvas-ctrl">
+            <button class="btn btn-xs" onclick="fitCanvas()">Fit</button>
+            <button class="btn btn-xs" onclick="resetView()">Reset</button>
+          </span>
+        </h2>
+        <div class="canvas-wrapper">
+          <canvas id="genomeCanvas"></canvas>
+          <div class="canvas-status" id="canvas-status">Upload genome files to begin</div>
+        </div>
+      </div>
+
+      <div class="resizer" id="resizer"></div>
+
+      <div class="section-card" id="run-section">
+        <div class="run-bar">
+          <button class="btn btn-primary" id="run-btn" onclick="runNGenomeSyn()">▶ Run NGenomeSyn</button>
+          <span class="run-status" id="run-status"></span>
+        </div>
+        <div id="result-area" style="display:none">
+          <div class="result-toolbar">
+            <button class="btn btn-sm" onclick="downloadSVG()">Download SVG</button>
+            <button class="btn btn-sm" onclick="downloadConf()">Download Config</button>
+            <span id="result-zoom-lvl" class="zoom-lvl"></span>
+          </div>
+          <div class="result-svg" id="result-svg"></div>
+        </div>
+        <div id="error-area" style="display:none">
+          <pre id="error-text"></pre>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="context-menu" class="ctx-menu">
+    <ul></ul>
+  </div>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
